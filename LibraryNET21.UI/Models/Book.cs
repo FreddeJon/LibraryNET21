@@ -1,11 +1,14 @@
-﻿namespace LibraryNET21.UI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LibraryNET21.UI.Models
 {
     public class Book
     {
         public int Id { get; set; }
+        [Required]
         public string Title { get; set; }
-        public bool IsAvailable { get; set; }
-        public List<Category> Categories { get; set; } = new List<Category>();
-        public List<Author> Authors { get; set; } = new List<Author>();
+        public bool IsAvailable { get; set; } = true;
+        public Category Category { get; set; }
+        public Author Author { get; set; }
     }
 }
