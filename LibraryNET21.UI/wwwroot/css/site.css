@@ -16,3 +16,15 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.nice-links {
+  text-decoration: none;
+  color: black;
+  font-weight: normal;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: normal;
+}

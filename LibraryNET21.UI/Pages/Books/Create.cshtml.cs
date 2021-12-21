@@ -22,8 +22,7 @@ namespace LibraryNET21.UI.Pages.Books
 
         public IActionResult OnGet()
         {
-            
-            ViewData["Author"] = new SelectList(_context.Authors.OrderBy(x => x.Name), nameof(Author.Id), nameof(Author.Name));
+            ViewData["Authors"] = new SelectList(_context.Authors.OrderBy(x => x.Name), nameof(Author.Id), nameof(Author.Name));
             ViewData["Categories"] = new SelectList(_context.Categories.OrderBy(x => x.CategoryTitle), nameof(Category.Id), nameof(Category.CategoryTitle));
             return Page();
         }

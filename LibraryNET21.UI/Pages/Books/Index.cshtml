@@ -7,29 +7,75 @@
 
 <h1>Index</h1>
 
+
+
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+
+<form>
+    <div class="input-group rounded">
+        <input type="search" asp-for="Search" class="form-control rounded" placeholder="Search" aria-label="Search"
+               aria-describedby="search-addon" />    
+            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> </button>
+    </div>
+</form>
+
+
+
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Title)
+                @Html.DisplayNameFor(model => model.Books[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].IsAvailable)
+                @Html.DisplayNameFor(model => model.Books[0].IsAvailable)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Author)
+                @Html.DisplayNameFor(model => model.Books[0].Author)
             </th>
-                        <th>
-                @Html.DisplayNameFor(model => model.Book[0].Category)
+            <th>
+                @Html.DisplayNameFor(model => model.Books[0].Category)
+            </th>
+            <th>
+                <div class="dropdown indexDropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Sort by
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a class="nice-links" asp-route-sortOrder="?sort=TitleAsc">Title Ascending</a></li>
+                        <li><a class="nice-links" asp-route-sortOrder="?sort=TitleDesc">Title Descending</a></li>
+                        <li><a class="nice-links" asp-route-sortOrder="?sort=AuthorAsc">Author Ascending</a></li>
+                        <li><a class="nice-links" asp-route-sortOrder="?sort=AuthorDesc">Author Descending</a></li>
+                    </ul>
+                </div>
+            </th>
+            <th>
+                <div class="dropdown indexDropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Category
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a class="nice-links" asp-route-category="Category=All">All</a></li>
+                        <li><a class="nice-links" asp-route-category="Category=Drama">Drama</a></li>
+                        <li><a class="nice-links" asp-route-category="Category=History">History</a></li>
+                        <li><a class="nice-links" asp-route-category="Category=Horror">Horror</a></li>
+                        <li><a class="nice-links" asp-route-category="Category=Novel">Novel</a></li>
+                        <li><a class="nice-links" asp-route-category="Category=ScienceFiction">ScienceFiction</a></li>
+                        <li><a class="nice-links" asp-route-category="Category=Thriller">Thriller</a></li>
+                    </ul>
+                </div>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Book)
+        @foreach (var item in Model.Books)
         {
             <tr>
                 <td>
@@ -41,15 +87,17 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Author.Name)
                 </td>
-                 <td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Category.CategoryTitle)
                 </td>
+                <td></td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="nice-links" asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a class="nice-links" asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a class="nice-links" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
