@@ -86,7 +86,7 @@
                 </td>
                 <td></td>
                 <td>
-                    @if (Model.Rent && item.IsAvailable)
+                    @if (Model.IsAuthenticated && item.IsAvailable)
                     {
                         <a class="nice-links" asp-page="./Edit" asp-route-id="@item.Id">RentTODO</a>
                     }                    

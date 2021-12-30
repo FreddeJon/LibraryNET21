@@ -30,7 +30,7 @@ namespace LibraryNET21.UI.Pages
         public string Search { get; set; }
 
 
-        public bool Rent => User.Identity.IsAuthenticated;
+        public bool IsAuthenticated => User.Identity.IsAuthenticated;
         public async Task OnGetAsync()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -38,7 +38,7 @@ namespace LibraryNET21.UI.Pages
             if (!string.IsNullOrEmpty(Search))
             {
                 Books = Books.Where(b => b.Title.ToLower().Contains(Search.ToLower()) || b.Author.Name.ToLower().Contains(Search.ToLower())).ToList();
-                var msg = $"Searched for {Search} at: {DateTime.Now.ToString()}";
+                var msg = $"Searched for {Search} at: {DateTime.Now}";
                 _logger.LogInformation(msg);
             }
 

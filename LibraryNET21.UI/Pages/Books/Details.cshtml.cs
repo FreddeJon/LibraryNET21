@@ -12,9 +12,9 @@ namespace LibraryNET21.UI.Pages.Books
 {
     public class DetailsModel : PageModel
     {
-        private readonly LibraryNET21.UI.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DetailsModel(LibraryNET21.UI.Data.ApplicationDbContext context)
+        public DetailsModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -28,7 +28,12 @@ namespace LibraryNET21.UI.Pages.Books
                 return NotFound();
             }
 
-            Book = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
+            Book = await _context.Books
+                .Include(b => b.Author)
+                .Include(b => b.Category)
+                .Include(b => b.Attributes)
+                .ThenInclude(a => a.Cover)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (Book == null)
             {
