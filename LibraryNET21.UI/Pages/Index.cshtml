@@ -6,13 +6,12 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 <form>
     <div class="input-group rounded">
         <input type="search" asp-for="Search" class="form-control rounded" placeholder="Search" aria-label="Search"
-               aria-describedby="search-addon" />    
-            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> </button>
+               aria-describedby="search-addon" />
+        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> </button>
     </div>
 </form>
 
@@ -24,9 +23,6 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Books[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Books[0].IsAvailable)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Books[0].Author)
@@ -76,9 +72,6 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IsAvailable)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Author.Name)
                 </td>
                 <td>
@@ -88,8 +81,26 @@
                 <td>
                     @if (Model.IsAuthenticated && item.IsAvailable)
                     {
-                        <a class="nice-links" asp-page="./Edit" asp-route-id="@item.Id">RentTODO</a>
-                    }                    
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-@item.Id">
+                            Rent
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal-@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        Are you sure you wish to rent @item.Title?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <a class="btn btn-primary" asp-page-handler="Rent" asp-route-id="@item.Id">Rent</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </td>
             </tr>
         }

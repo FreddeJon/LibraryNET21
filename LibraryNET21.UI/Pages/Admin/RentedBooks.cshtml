@@ -1,0 +1,57 @@
+﻿@page
+@model LibraryNET21.UI.Pages.Admin.RentedBooksModel
+
+@{
+    ViewData["Title"] = "RentedBooks";
+}
+
+<h1>RentedBooks</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Rentals[0].UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rentals[0].RentedBook.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rentals[0].DateRented)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rentals[0].DateReturned)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Rentals)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RentedBook.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateRented)
+                </td>
+                <td>
+                    @if (item.IsReturned)
+                    {
+                        @Html.DisplayFor(modelItem => item.DateReturned)
+                    }
+                    else
+                    {
+                        <p>Not Returned</p>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

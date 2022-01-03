@@ -1,5 +1,6 @@
 ﻿using LibraryNET21.UI.Data;
 using LibraryNET21.UI.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -11,11 +12,15 @@ namespace LibraryNET21.UI.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext context)
+        public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _logger = logger;
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public IList<Book> Books { get; set; }
@@ -33,6 +38,9 @@ namespace LibraryNET21.UI.Pages
         public bool IsAuthenticated => User.Identity.IsAuthenticated;
         public async Task OnGetAsync()
         {
+            var rightUser = await _userManager.FindByNameAsync("fredrikjonson@hotmail.se");
+            var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            bool isFound = await _roleManager.RoleExistsAsync("Admin");
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Books = await _context.Books.Include(x => x.Category).Include(x => x.Author).ToListAsync();
             if (!string.IsNullOrEmpty(Search))
@@ -63,5 +71,27 @@ namespace LibraryNET21.UI.Pages
                 _ => Books.OrderBy(b => b.Title).ToList(),
             };
         }
+
+        public async Task OnGetRentAsync(int id)
+        {
+
+            if (id > 0)
+            {
+                var rentedBook = await _context.Books.FindAsync(id);
+                Rentals rented = new Rentals()
+                {
+                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    RentedBook = rentedBook,
+                    DateRented = DateTime.Now,
+                    IsReturned = false,
+                };
+                rentedBook.IsAvailable = false;
+                _context.Rentals.Add(rented);
+                _context.SaveChanges();
+            }
+
+            Books = await _context.Books.Include(x => x.Category).Include(x => x.Author).OrderBy(b => b.Title).ToListAsync();
+        }
+
     }
 }

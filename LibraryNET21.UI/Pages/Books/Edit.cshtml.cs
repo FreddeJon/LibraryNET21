@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryNET21.UI.Pages.Books
 {
-   
+    [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;

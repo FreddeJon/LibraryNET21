@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using LibraryNET21.UI.Data;
 using LibraryNET21.UI.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryNET21.UI.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class DetailsModel : PageModel
     {
         private readonly ApplicationDbContext _context;
