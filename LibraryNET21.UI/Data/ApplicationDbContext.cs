@@ -10,6 +10,8 @@ namespace LibraryNET21.UI.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Cover> Covers { get; set; }
+        public DbSet<Rentals> Rentals { get; set; }
+        public DbSet<BookAttribute> BookAttributes { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

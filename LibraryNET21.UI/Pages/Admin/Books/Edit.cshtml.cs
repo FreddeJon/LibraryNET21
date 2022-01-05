@@ -11,9 +11,9 @@ using LibraryNET21.UI.Models;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 
-namespace LibraryNET21.UI.Pages.Books
+namespace LibraryNET21.UI.Pages.Admin.Books
 {
-   
+    [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;
