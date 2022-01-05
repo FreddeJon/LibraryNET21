@@ -7,11 +7,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using LibraryNET21.UI.Data;
 using LibraryNET21.UI.Models;
-using Microsoft.AspNetCore.Authorization;
 
-namespace LibraryNET21.UI.Pages.Books
+namespace LibraryNET21.UI.Pages.Admin.Authors
 {
-    [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
         private readonly LibraryNET21.UI.Data.ApplicationDbContext _context;
@@ -22,7 +20,7 @@ namespace LibraryNET21.UI.Pages.Books
         }
 
         [BindProperty]
-        public Book Book { get; set; }
+        public Author Author { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -31,9 +29,9 @@ namespace LibraryNET21.UI.Pages.Books
                 return NotFound();
             }
 
-            Book = await _context.Books.FirstOrDefaultAsync(m => m.Id == id);
+            Author = await _context.Authors.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Book == null)
+            if (Author == null)
             {
                 return NotFound();
             }
@@ -47,11 +45,11 @@ namespace LibraryNET21.UI.Pages.Books
                 return NotFound();
             }
 
-            Book = await _context.Books.FindAsync(id);
+            Author = await _context.Authors.FindAsync(id);
 
-            if (Book != null)
+            if (Author != null)
             {
-                _context.Books.Remove(Book);
+                _context.Authors.Remove(Author);
                 await _context.SaveChangesAsync();
             }
 

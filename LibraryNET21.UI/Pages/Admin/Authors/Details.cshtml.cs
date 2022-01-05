@@ -7,21 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using LibraryNET21.UI.Data;
 using LibraryNET21.UI.Models;
-using Microsoft.AspNetCore.Authorization;
 
-namespace LibraryNET21.UI.Pages.Books
+namespace LibraryNET21.UI.Pages.Admin.Authors
 {
-    [Authorize(Roles = "Admin")]
     public class DetailsModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly LibraryNET21.UI.Data.ApplicationDbContext _context;
 
-        public DetailsModel(ApplicationDbContext context)
+        public DetailsModel(LibraryNET21.UI.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public Book Book { get; set; }
+        public Author Author { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,14 +28,9 @@ namespace LibraryNET21.UI.Pages.Books
                 return NotFound();
             }
 
-            Book = await _context.Books
-                .Include(b => b.Author)
-                .Include(b => b.Category)
-                .Include(b => b.Attributes)
-                .ThenInclude(a => a.Cover)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            Author = await _context.Authors.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Book == null)
+            if (Author == null)
             {
                 return NotFound();
             }

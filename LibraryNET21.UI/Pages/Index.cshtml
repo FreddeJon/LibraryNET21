@@ -7,6 +7,7 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
 </div>
+<br />
 <form>
     <div class="input-group rounded">
         <input type="search" asp-for="Search" class="form-control rounded" placeholder="Search" aria-label="Search"
@@ -29,6 +30,12 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Books[0].Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books[0].Attributes.Cover)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books[0].Attributes.Pages)
             </th>
             <th>
                 <div class="dropdown indexDropdown">
@@ -76,6 +83,12 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Category.CategoryTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Attributes.Cover.CoverType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Attributes.Pages)
                 </td>
                 <td></td>
                 <td>
