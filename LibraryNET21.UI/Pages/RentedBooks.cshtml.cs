@@ -15,9 +15,9 @@ namespace LibraryNET21.UI.Pages
     [Authorize]
     public class RentedBooksModel : PageModel
     {
-        private readonly LibraryNET21.UI.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public RentedBooksModel(LibraryNET21.UI.Data.ApplicationDbContext context)
+        public RentedBooksModel(ApplicationDbContext context)
         {
             _context = context;
         }

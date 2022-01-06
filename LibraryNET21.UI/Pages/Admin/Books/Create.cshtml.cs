@@ -45,7 +45,7 @@ namespace LibraryNET21.UI.Pages.Admin.Books
         public int CategoryId { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "CoverId is required.")]
+        [Required(ErrorMessage = "Cover is required.")]
         public int CoverId { get; set; }
 
 

@@ -13,7 +13,7 @@ namespace LibraryNET21.UI.Models
                 var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
                 var userManager = scope.ServiceProvider.GetService<UserManager<IdentityUser>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
+                
                 context.Database.EnsureCreated();
                 CreateAdminUser(roleManager, userManager);
             }
@@ -24,7 +24,7 @@ namespace LibraryNET21.UI.Models
         private static void CreateAdminUser(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
             bool roleFound = roleManager.RoleExistsAsync("Admin").Result;
-
+            
             if (!roleFound)
             {
                var roleCreated = roleManager.CreateAsync(new IdentityRole("Admin")).GetAwaiter().GetResult();
